@@ -1,3 +1,4 @@
+delimiter //
 drop table if exists pro_log;
 drop table if exists pro_employee;
 drop table if exists project;
@@ -214,4 +215,5 @@ CREATE TRIGGER employee_pro_delete_check
     FOR EACH ROW
 BEGIN
     insert into pro_log (pro_id, operation, info) values (OLD.pro_id, 'delete employee', old.employee_id);
-end;
+end;//
+delimiter ;
