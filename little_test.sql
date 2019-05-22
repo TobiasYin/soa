@@ -1,3 +1,5 @@
+set names utf8;
+set names utf8;
 insert into department
 values ('开发部');
 insert into department
