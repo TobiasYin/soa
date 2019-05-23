@@ -1,10 +1,12 @@
 from flask import Flask, jsonify, request, g, session, redirect, url_for
 from db import DbSystem
 import os, pymysql
+from flask_cors import *
 
 db_manager = DbSystem()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "abcderf"
+CORS(app, supports_credentials=True)
 
 
 @app.before_request
@@ -14,6 +16,7 @@ def get_request():
         cursor = db_manager.get_read_only_cursor()
         cursor.execute("select * from employee where id = {}".format(user_id))
         data = cursor.fetchone()
+        cursor.fetchall()
         if data:
             description = [i[0] for i in cursor.description]
             user = {i: j for i, j in zip(description, data)}
@@ -35,7 +38,7 @@ def hello_world():
     return 'Hello World!'
 
 
-# 登录 {‘user_id’(int), 'password'}
+# 登录 {‘user_id’(int), 'password','remember'(bool)}
 @app.route('/api/login', methods=['POST'])
 def login():
     user_id = request.json.get('user_id')
@@ -45,20 +48,30 @@ def login():
     if data_base_pass:
         if data_base_pass == request.json.get('password'):
             session['user_id'] = user_id
-            if request.json.get('isRemember'):
+            if request.json.get('remember'):
                 session.permanent = True
-            data = {
-                'isLogin': True,
+            return jsonify({
+                'status': True,
                 'userID': user_id,
                 'level': level,
                 'name': name
-            }
-        else:
-            data = {'userID': 0, 'isLogin': False, 'failCode': '密码错误'}
-    else:
-        data = {'userID': 0, 'isLogin': False, 'failCode': '没有找到用户'}
-    resp = jsonify(data)
-    return resp
+            })
+    return jsonify(data={'status': False, 'failCode': 'ID或密码错误'})
+
+
+@app.route('/api/logout')
+def logout():
+    session.clear()
+    return jsonify({'status': True})
+
+
+# 是否登陆
+@app.route('/api/islogin', methods=['GET'])
+def islogin():
+    if hasattr(g, 'user'):
+        return jsonify(
+            {"status": True, "level": g.user.get("level"), "name": g.user.get("name"), "id": g.user.get("id")})
+    return jsonify({"status": False, "code": "请登陆"})
 
 
 # 添加员工，{'name', 'dept_name', 'level'(int) , 'salary'(float)} level > 7
@@ -200,6 +213,20 @@ def check_in():
             db_manager.push_back_cursor(cursor)
         except pymysql.err.IntegrityError:
             return jsonify({'status': False, 'code': '已签到'})
+        return jsonify({'status': True})
+    return jsonify({"status": False, "code": "请登陆"})
+
+
+# 查看是否签到
+@app.route('/api/is_check_in', methods=['GET'])
+def is_check_in():
+    if hasattr(g, 'user'):
+        cursor = db_manager.get_read_only_cursor()
+        cursor.execute(
+            'select count(*) from check_in where person_id = {} and  date = curdate()'.format(g.user.get('id')))
+        data = cursor.fetchone()
+        if data[0] == 0:
+            return jsonify({'status': False})
         return jsonify({'status': True})
     return jsonify({"status": False, "code": "请登陆"})
 

@@ -1,20 +1,20 @@
 <template>
-    <div>
+    <div id = "app">
         <div v-if="isLogin">
-            hello
+            <Index/>
         </div>
         <div v-else>
-            no
+            <Login/>
         </div>
     </div>
 </template>
 <script>
+    import Login from './components/Login'
+    import Index from './components/Index'
     export default {
         name: 'app',
         data() {
             return {
-                collapsed: false,
-
             }
         },
         computed:{
@@ -22,15 +22,23 @@
                 return this.$store.state.isLogin
             }
         },
-        components: {},
+        components: {
+            Index,
+            Login
+        },
         beforeMount() {
+            this.axios.defaults.xsrfCookieName = 'session';
+            this.axios.defaults.timeout = 2500;
+            this.axios.defaults.headers = {"X-Requested-With": "XMLHttpRequest"};
+            this.axios.defaults.withCredentials = true;
             this.axios.get(this.$store.state.url + '/api/islogin')
                 .then((resp) => {
                     let temp = resp.data;
-                    if (temp.isLogin) {
+                    if (temp.status) {
                         this.$store.commit('login');
                         this.$store.commit('setName', temp.name);
                         this.$store.commit('setUserID', temp.userID);
+                        this.$store.commit('setLevel', temp.level)
                     }
                 });
         }
@@ -42,26 +50,6 @@
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        text-align: center;
         color: #2c3e50;
-        margin-top: 60px;
-    }
-
-    #components-layout-demo-custom-trigger .trigger {
-        font-size: 18px;
-        line-height: 64px;
-        padding: 0 24px;
-        cursor: pointer;
-        transition: color .3s;
-    }
-
-    #components-layout-demo-custom-trigger .trigger:hover {
-        color: #1890ff;
-    }
-
-    #components-layout-demo-custom-trigger .logo {
-        height: 32px;
-        background: rgba(255, 255, 255, .2);
-        margin: 16px;
     }
 </style>
