@@ -44,7 +44,7 @@ CREATE TABLE employee_log
 );
 CREATE TABLE check_in
 (
-    date      TIMESTAMP   not null default CURRENT_TIMESTAMP,
+    date      DATE   not null,
     person_id INTEGER(11) not null,
     primary key (date, person_id)
 );
@@ -75,23 +75,34 @@ CREATE TABLE pro_log
     foreign key (pro_id) references project (pro_id)
 );
 
+drop trigger if exists employee_level_check;
+CREATE TRIGGER employee_level_check
+    BEFORE INSERT
+    on employee
+    FOR EACH ROW
+BEGIN
+    IF NEW.level > 10 THEN SIGNAL SQLSTATE 'TX000' SET MESSAGE_TEXT = 'Level can\'t be bigger than 10'; end if;
+    IF NEW.level < 1 THEN SIGNAL SQLSTATE 'TX000' SET MESSAGE_TEXT = 'Level can\'t be smaller than 1'; end if;
+end;
+
 drop trigger if exists employee_add_check;
 CREATE TRIGGER employee_add_check
     AFTER INSERT
     on employee
     FOR EACH ROW
 BEGIN
-    IF NEW.level > 10 THEN update employee set level = 10 where id = new.id; end if;
     INSERT into employee_log (id, operation, old, new) values (new.id, 'ADD', null, new.name);
 end;
 
+
 drop trigger if exists employee_change_check;
 CREATE TRIGGER employee_change_check
-    AFTER UPDATE
+    BEFORE UPDATE
     on employee
     FOR EACH ROW
 BEGIN
-    IF NEW.level > 10 THEN update employee set level = 10 where id = new.id; end if;
+    IF NEW.level > 10 THEN SIGNAL SQLSTATE 'TX000' SET MESSAGE_TEXT = 'Level can\'t be bigger than 10'; end if;
+    IF NEW.level < 1 THEN SIGNAL SQLSTATE 'TX000' SET MESSAGE_TEXT = 'Level can\'t be smaller than 1'; end if;
     IF NEW.name != old.name then
         INSERT into employee_log (id, operation, old, new) values (new.id, 'change name', old.name, new.name);
     end if;
@@ -100,7 +111,7 @@ BEGIN
         values (new.id, 'change department', old.dept_name, new.dept_name);
     end if;
     IF NEW.level != old.level then
-        IF old.level >= 10 and new.level < 10 then
+        IF old.level = 10 and new.level < 10 then
             delete from dept_manager where manager_id = new.id;
         end if;
         IF old.level >= 7 and NEW.level < 7 then
@@ -176,7 +187,7 @@ BEGIN
     set @id = (select level from employee where employee.id = NEW.manager_id);
     if @id < 10 then
         SIGNAL SQLSTATE 'TX000' SET MESSAGE_TEXT =
-                'This level can\'t be a manager of a department, should bigger than 10';
+                'This level can\'t be a manager of a department, should bigger than 9';
     end if;
     update employee set dept_name = NEW.dept_name where employee.id = new.manager_id;
 end;

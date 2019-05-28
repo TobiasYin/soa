@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, g, session, redirect, url_for
+from flask import Flask, jsonify, request, g, session, redirect, url_for, render_template
 from db import DbSystem
 import os, pymysql
 from flask_cors import *
@@ -35,7 +35,7 @@ def send_user():
 
 @app.route('/')
 def hello_world():
-    return 'Hello World!'
+    return render_template("index.html")
 
 
 # 登录 {‘user_id’(int), 'password','remember'(bool)}
@@ -106,15 +106,31 @@ def fire_employee():
     return jsonify({"status": False, "code": "请登陆"})
 
 
+# 获取, {'id'(int)}
+@app.route('/api/get_one_employee', methods=['POST'])
+def get_one_employee():
+    if hasattr(g, 'user'):
+        cursor = db_manager.get_read_only_cursor()
+        cursor.execute("select id, name, dept_name, level, salary, state from employee where  id = {}".format(
+            int(request.json.get("id"))))
+        data = cursor.fetchone()
+        description = [i[0] for i in cursor.description]
+        res = {i: j for i, j in zip(description, data)}
+        res["salary"] = float(res["salary"])
+        return jsonify({'status': True, 'data': res})
+    return jsonify({"status": False, "code": "请登陆"})
+
+
 # 选择员工, {'all'(bool), 'dept_name', 'fired'(bool)}
 @app.route('/api/get_employee', methods=['POST'])
 def get_employee():
     if hasattr(g, 'user'):
         cursor = db_manager.get_cursor()
         if request.json.get('all'):
-            sql = 'select * from employee where state = {}'.format(int(not request.json.get("fired")))
+            sql = 'select id, name, dept_name, level, salary, state  from employee where state = {}'.format(
+                int(not request.json.get("fired")))
         else:
-            sql = "select * from employee where dept_name = '{}' and state = {}".format(
+            sql = "select id, name, dept_name, level, salary, state  from employee where dept_name = '{}' and state = {}".format(
                 request.json.get('dept_name'), int(not request.json.get("fired")))
         cursor.execute(sql)
         data = cursor.fetchall()
@@ -367,8 +383,39 @@ def find_project():
     if hasattr(g, 'user'):
         cursor = db_manager.get_read_only_cursor()
         cursor.execute("select * from project where state = {}".format(int(request.json.get('finished'))))
-        db_manager.push_back_cursor(cursor)
-        return jsonify({"status": True})
+        data = cursor.fetchall()
+        description = [i[0] for i in cursor.description]
+        res = [{i: j for i, j in zip(description, line)} for line in data]
+        return jsonify({"status": True, "data": res})
+    return jsonify({"status": False, "code": "权限不足"})
+
+
+# 查找项目, {'id'(int)}
+@app.route('/api/get_project', methods=['POST'])
+def get_project():
+    if hasattr(g, 'user'):
+        cursor = db_manager.get_read_only_cursor()
+        cursor.execute("select * from project where pro_id = {}".format(int(request.json.get('id'))))
+        data = cursor.fetchone()
+        description = [i[0] for i in cursor.description]
+        res = {i: j for i, j in zip(description, data)}
+        return jsonify({"status": True, "data": res})
+    return jsonify({"status": False, "code": "权限不足"})
+
+
+# 删除项目人员, {'pro_id','employee_id'}
+@app.route('/api/del_employee_pro', methods=['POST'])
+def del_employee_pro():
+    if hasattr(g, 'user'):
+        if g.user.get('level') > 7:
+            try:
+                cursor = db_manager.get_cursor()
+                cursor.execute("delete from pro_employee where pro_id = {} and employee_id = {} ".format(
+                    request.json.get('pro_id'), request.json.get('employee_id')))
+                db_manager.push_back_cursor(cursor)
+                return jsonify({"status": True})
+            except pymysql.err.InternalError:
+                return jsonify({'status': False, 'code': '没找到此成员'})
     return jsonify({"status": False, "code": "权限不足"})
 
 
@@ -382,7 +429,7 @@ def add_project_leader():
                 cursor.execute("update project set leader = {} where pro_id = {};".format(request.json.get('leader'),
                                                                                           request.json.get('pro_id')))
                 db_manager.push_back_cursor(cursor)
-            except pymysql.err.InternalError:
+            except pymysql.err.InternalError as e:
                 return jsonify({'status': False, 'code': 'level 大于 7 才能当leader'})
             return jsonify({"status": True})
     return jsonify({"status": False, "code": "权限不足"})
@@ -410,7 +457,8 @@ def add_project_employee():
                 cursor.execute("insert into pro_employee values ({},{})".format(request.json.get('pro_id'),
                                                                                 request.json.get('emp_id')))
                 db_manager.push_back_cursor(cursor)
-            except pymysql.err.InternalError:
+            except pymysql.err.InternalError as e:
+                print(e)
                 return jsonify({'status': False, 'code': '一个员工最多参加三个项目'})
         return jsonify({"status": True})
     return jsonify({"status": False, "code": "权限不足"})
@@ -431,14 +479,14 @@ def get_employee_pro():
     return jsonify({"status": False, "code": "权限不足"})
 
 
-# 获取项目的成员, {'pro_id'(int)}
+# 获取项目的成员, {'id'(int)}
 @app.route('/api/get_pro_employee', methods=['POST'])
 def get_pro_employee():
     if hasattr(g, 'user'):
         cursor = db_manager.get_read_only_cursor()
         cursor.execute(
             "select name, id from (select pro_employee.pro_id, pro_name, employee_id from pro_employee left join project on pro_employee.pro_id = project.pro_id where project.pro_id = {}) as T left join employee on employee_id = id".format(
-                request.json.get('pro_id')))
+                request.json.get('id')))
         data = cursor.fetchall()
         description = [i[0] for i in cursor.description]
         res = [{i: j for i, j in zip(description, line)} for line in data]
@@ -461,22 +509,45 @@ def get_pro_log():
     return jsonify({"status": False, "code": "请登陆"})
 
 
-# 超级权限!!!, 可执行一切SQL, 慎用!!!, {'sql'(list)}, level = 10
+# 获取所有项目日志
+@app.route('/api/get_project_log', methods=['GET'])
+def get_project_log():
+    if hasattr(g, 'user'):
+        cursor = db_manager.get_read_only_cursor()
+        cursor.execute("select * from pro_log")
+        data = cursor.fetchall()
+        description = [i[0] for i in cursor.description]
+        res = [{i: j for i, j in zip(description, line)} for line in data]
+        for i in res:
+            i['date_time'] = i['date_time'].timestamp()
+        return jsonify({'status': True, 'data': res})
+    return jsonify({"status": False, "code": "请登陆"})
+
+
+# 超级权限!!!, 可执行一切SQL, 慎用!!!, {'sql'}, level = 10
 @app.route('/api/super_user', methods=['POST'])
 def super_user():
     if hasattr(g, 'user'):
         if g.user.get('level') == 10:
             sql = request.json.get('sql')
             res = []
-            for i in sql:
-                try:
-                    cursor = db_manager.get_cursor()
-                    if cursor.execute(i):
-                        res.append(cursor.fetchall())
-                    db_manager.push_back_cursor(cursor)
-                except Exception as e:
-                    res.append(e.args)
-            return jsonify({"status": True, "data": res})
+            description = []
+            try:
+                cursor = db_manager.get_cursor()
+                if cursor.execute(sql):
+                    res = [[j for j in i] for i in cursor.fetchall()]
+                    description = [i[0] for i in cursor.description]
+                db_manager.push_back_cursor(cursor)
+            except Exception as e:
+                res.append(e.args)
+            print(res)
+            for i in res:
+                for index, j in enumerate(i):
+                    if str(type(j)) == "<class 'decimal.Decimal'>":
+                        i[index] = float(j)
+                    elif str(type(j)) == "<class 'datetime.datetime'>":
+                        i[index] = j.timestamp()
+            return jsonify({"status": True, "data": res, "des": description})
     return jsonify({"status": False, "code": "权限不足"})
 
 
