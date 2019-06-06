@@ -309,10 +309,10 @@
                     if (!err) {
                         this.axios.post(this.url + "/api/change_employee_dept", {
                             'id': this.id,
-                            'dept_name': values.dept
+                            'dept_name': values.dept.key
                         }).then((resp) => {
                             if (resp.data.status) {
-                                this.dept_name = values.dept;
+                                this.dept_name = values.dept.key;
                             } else {
                                 this.$notification.error({
                                     message: '修改失败',

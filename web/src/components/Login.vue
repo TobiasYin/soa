@@ -115,7 +115,7 @@
         width: 20%;
         min-width: 100px;
         margin: auto;
-        padding: 300px 0;
+        padding: 200px 0;
     }
     #login_form{
         margin-top: 50px;

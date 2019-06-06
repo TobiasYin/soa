@@ -1,10 +1,36 @@
 <template>
     <div>
+        <div v-if="ulevel = 10">
+            <a-card title="添加部门"/>
+            <a-form
+                    id="add"
+                    :form="add"
+                    class="add"
+                    @submit="addDept"
+                    style="margin-top: 20px">
+                <a-row justify="space-around" align="middle">
+                    <a-col :span="10">
+                        <a-form-item class="add-e">
+                            <a-input
+                                    v-decorator="['name',{ rules: [{ required: true, message: 'Level is needed' }] }]"
+                                    placeholder="Department Name">
+                                <a-icon slot="prefix" type="user" style="color: rgba(0,0,0,.25)"/>
+                            </a-input>
+                        </a-form-item>
+                    </a-col>
+                    <a-col :span="4">
+                        <a-form-item class="add-e">
+                            <a-button type="primary" class="add-b" html-type="submit">Add</a-button>
+                        </a-form-item>
+                    </a-col>
+                </a-row>
+            </a-form>
+        </div>
         <a-card :title="dept"/>
         <a-row>
             <a-col :span="24">
                 <a-select
-                        placeholder="Please select new Department"
+                        placeholder="Please select a Department"
                         @change="getEmployees"
                         style="width: 100%"
                 >
@@ -155,6 +181,7 @@
         },
         beforeCreate() {
             this.form = this.$form.createForm(this);
+            this.add = this.$form.createForm(this);
         },
         beforeMount() {
             this.axios.get(this.url + "/api/get_department")
@@ -195,10 +222,39 @@
                 clearFilters();
                 this.searchText = ''
             },
+            addDept(e) {
+                e.preventDefault();
+                this.add.validateFields((err, values) => {
+                    if (!err) {
+                        this.axios.post(this.url + "/api/add_dept", {
+                            'dept_name': values.name,
+                        }).then((resp) => {
+                            if (resp.data.status) {
+                                alert("成功");
+                                this.depts.push(values.name);
+                            } else {
+                                this.$notification.error({
+                                    message: '修改失败',
+                                    description: resp.data.code,
+                                });
+                            }
+                        })
+                    }
+                });
+            }
         }
     }
 </script>
 
 <style scoped>
+
+    .login-form-forgot {
+        float: right;
+    }
+
+    .login-form-button {
+        width: 95%;
+        float: right;
+    }
 
 </style>

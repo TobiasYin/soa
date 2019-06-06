@@ -43,7 +43,7 @@
                     </a-menu-item>
                 </a-menu>
             </a-layout-sider>
-            <a-layout style="padding: 0 24px 24px;margin-top: 20px;min-height: 780px">
+            <a-layout style="padding: 0 24px 24px;margin-top: 20px;min-height: 700px">
                 <a-layout-content :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }">
                     <div v-if="selected==='1'">
                         <a-card class="content-header">
@@ -107,7 +107,7 @@
         methods: {
             checkin() {
                 this.axios.get(this.url + "/api/check_in").then((resp) => {
-                    this.isCheck = resp.data.status
+                    this.isCheck = resp.data.status;
                     if (!this.isCheck) {
                         this.$notification.error({
                             message: '签到失败',
@@ -132,11 +132,6 @@
             this.axios.get(this.url + "/api/is_check_in").then((resp) => {
                 this.isCheck = resp.data.status;
             });
-            if (this.level > 7) {
-                this.axios.post(this.$store.state.url + "/api/get_uncheck_in", {'all': true}).then((resp) => {
-
-                })
-            }
         }
     }
 </script>
