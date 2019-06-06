@@ -10,7 +10,7 @@ class DbSystem(object):
     def __init__(self, size=10):
         # self._pool = deque()
         # for i in range(size):
-            # self._pool.append(self.create_connect())
+        # self._pool.append(self.create_connect())
         pass
 
     def get_cursor(self) -> pymysql.Connection:

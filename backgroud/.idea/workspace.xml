@@ -2,19 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="87a1ad45-7fd5-4da2-b3b8-3e1a5d5ad8d5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../web/src/components/Department.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../web/src/components/EmployeeLog.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../web/src/components/EmployeeSetting.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../web/src/components/Log.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../web/src/components/Project.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../web/src/components/ProjectLog.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../web/src/components/ProjectSetting.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../web/src/components/SuperUser.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/R_User_Library.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/backgroud.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/backgroud.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.py" beforeDir="false" afterPath="$PROJECT_DIR$/db.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../create_table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../create_table.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/app.f9b3af71.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/chunk-vendors.abc56c7c.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/chunk-vendors.abc56c7c.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/app.5e796934.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/app.5e796934.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/chunk-vendors.f42538dc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/chunk-vendors.f42538dc.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../little_test.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../little_test.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../web/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/src/assets/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/src/components/Department.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/components/Department.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/src/components/EmployeeSetting.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/components/EmployeeSetting.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../web/src/components/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/components/Index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/src/components/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/components/Login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/src/components/ProjectSetting.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/components/ProjectSetting.vue" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,32 +36,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="17" column="32" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
+            <state relative-caret-position="333">
+              <caret line="81" column="34" lean-forward="true" selection-start-line="81" selection-start-column="34" selection-end-line="81" selection-end-column="34" />
               <folding>
-                <element signature="e#0#72#0" expanded="true" />
-                <marker date="1559046144688" expanded="true" signature="3057:22713" ph="..." />
-                <marker date="1559046144688" expanded="true" signature="11646:22713" ph="..." />
-                <marker date="1559046144688" expanded="true" signature="12708:22713" ph="..." />
+                <element signature="e#0#89#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/templates/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="20" column="19" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/db.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="7" column="75" selection-start-line="7" selection-start-column="15" selection-end-line="7" selection-end-column="75" />
+            <state relative-caret-position="184">
+              <caret line="8" selection-start-line="8" selection-end-line="8" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -83,10 +77,12 @@
       <find>修改</find>
       <find>更改</find>
       <find>主管</find>
-      <find>添加</find>
       <find>获取</find>
       <find>pro</find>
       <find>项目</find>
+      <find>部门</find>
+      <find>add_de</find>
+      <find>添加</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -95,16 +91,16 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/db.py" />
         <option value="$PROJECT_DIR$/app.py" />
         <option value="$PROJECT_DIR$/templates/index.html" />
+        <option value="$PROJECT_DIR$/db.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="59" />
-    <option name="width" value="1768" />
-    <option name="height" value="1001" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="55" />
+    <option name="width" value="1772" />
+    <option name="height" value="1005" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -136,6 +132,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -163,9 +160,9 @@
       <option name="targetType" value="PATH" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="E:\Project\soa\backgroud\venv\Scripts\python.exe" />
+      <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
@@ -187,22 +184,25 @@
       <workItem from="1558528520306" duration="14410000" />
       <workItem from="1558601133377" duration="3450000" />
       <workItem from="1559025241715" duration="18327000" />
+      <workItem from="1559108929922" duration="1607000" />
+      <workItem from="1559283250368" duration="4161000" />
+      <workItem from="1559795060136" duration="3743000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36407000" />
+    <option name="totallyTimeSpent" value="45918000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
+    <frame x="-7" y="-7" width="1563" height="845" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26599148" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27707642" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32905984" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.20815139" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -218,13 +218,15 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="SciView" order="3" />
       <window_info anchor="right" id="Database" order="4" />
+      <window_info anchor="right" id="R Graphics" order="5" />
+      <window_info anchor="right" id="R Packages" order="6" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/backgroud$backgroud.coverage" NAME="backgroud Coverage Results" MODIFIED="1559046388042" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/backgroud$backgroud.coverage" NAME="backgroud Coverage Results" MODIFIED="1559800047297" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/flask/sessions.py">
@@ -262,40 +264,51 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/pymysql/connections.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2">
+          <caret line="182" column="8" selection-start-line="182" selection-start-column="8" selection-end-line="182" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/pymysql/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="93" column="19" selection-start-line="93" selection-start-column="19" selection-end-line="93" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/flask/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="2327" selection-start-line="2327" selection-end-line="2327" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="7" column="75" selection-start-line="7" selection-start-column="15" selection-end-line="7" selection-end-column="75" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="17" column="32" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#72#0" expanded="true" />
-            <marker date="1559046144688" expanded="true" signature="3057:22713" ph="..." />
-            <marker date="1559046144688" expanded="true" signature="11646:22713" ph="..." />
-            <marker date="1559046144688" expanded="true" signature="12708:22713" ph="..." />
-          </folding>
+        <state relative-caret-position="140">
+          <caret line="1831" selection-start-line="1831" selection-end-line="1831" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="20" column="19" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
+        <state relative-caret-position="184">
+          <caret line="8" column="65" lean-forward="true" selection-start-line="8" selection-start-column="65" selection-end-line="8" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="81" column="34" lean-forward="true" selection-start-line="81" selection-start-column="34" selection-end-line="81" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#89#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

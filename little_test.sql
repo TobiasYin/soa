@@ -10,7 +10,7 @@ insert into department
 values ('产品部');
 
 insert into employee (name, dept_name, level, salary)
-values ('唐家阳', '人力资源部', 1, 200);
+values ('test1', '人力资源部', 1, 200);
 insert into employee (name, dept_name, level, salary)
 values ('尹瑞涛', '开发部', 10, 200000);
 insert into employee (name, dept_name, level, salary)
